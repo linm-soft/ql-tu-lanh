@@ -83,10 +83,14 @@ namespace Tulanh.Data
                     command.Parameters.AddWithValue("@Compartment", food.Compartment);
                     command.Parameters.AddWithValue("@Quantity", food.Quantity);
                     command.Parameters.AddWithValue("@Weight", food.Weight);
+
                     command.Parameters.AddWithValue(
                         "@ImportDate",
                         food.ImportDate.ToString("yyyy-MM-dd"));
-                    command.Parameters.AddWithValue("@FreshDays", food.FreshDays);
+
+                    command.Parameters.AddWithValue(
+                        "@FreshDays",
+                        food.FreshDays);
 
                     command.ExecuteNonQuery();
                 }
@@ -109,21 +113,34 @@ namespace Tulanh.Data
                 using (SqliteCommand command =
                        new SqliteCommand(sql, connection))
                 {
-                    using (SqliteDataReader reader = command.ExecuteReader())
+                    using (SqliteDataReader reader =
+                           command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             Food food = new Food();
 
-                            food.Id = Convert.ToInt32(reader["Id"]);
-                            food.Name = reader["Name"].ToString();
-                            food.Category = reader["Category"].ToString();
-                            food.Compartment = reader["Compartment"].ToString();
-                            food.Quantity = Convert.ToInt32(reader["Quantity"]);
-                            food.Weight = Convert.ToDouble(reader["Weight"]);
+                            food.Id =
+                                Convert.ToInt32(reader["Id"]);
+
+                            food.Name =
+                                reader["Name"].ToString();
+
+                            food.Category =
+                                reader["Category"].ToString();
+
+                            food.Compartment =
+                                reader["Compartment"].ToString();
+
+                            food.Quantity =
+                                Convert.ToInt32(reader["Quantity"]);
+
+                            food.Weight =
+                                Convert.ToDouble(reader["Weight"]);
 
                             food.ImportDate =
-                                DateTime.Parse(reader["ImportDate"].ToString());
+                                DateTime.Parse(
+                                    reader["ImportDate"].ToString());
 
                             food.FreshDays =
                                 Convert.ToInt32(reader["FreshDays"]);
@@ -138,6 +155,67 @@ namespace Tulanh.Data
         }
 
 
+        // CẬP NHẬT THỰC PHẨM
+        public static void UpdateFood(Food food)
+        {
+            using (SqliteConnection connection =
+                   new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = @"
+                    UPDATE Foods
+                    SET
+                        Name = @Name,
+                        Category = @Category,
+                        Compartment = @Compartment,
+                        Quantity = @Quantity,
+                        Weight = @Weight,
+                        ImportDate = @ImportDate,
+                        FreshDays = @FreshDays
+                    WHERE Id = @Id";
+
+                using (SqliteCommand command =
+                       new SqliteCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue(
+                        "@Id",
+                        food.Id);
+
+                    command.Parameters.AddWithValue(
+                        "@Name",
+                        food.Name);
+
+                    command.Parameters.AddWithValue(
+                        "@Category",
+                        food.Category);
+
+                    command.Parameters.AddWithValue(
+                        "@Compartment",
+                        food.Compartment);
+
+                    command.Parameters.AddWithValue(
+                        "@Quantity",
+                        food.Quantity);
+
+                    command.Parameters.AddWithValue(
+                        "@Weight",
+                        food.Weight);
+
+                    command.Parameters.AddWithValue(
+                        "@ImportDate",
+                        food.ImportDate.ToString("yyyy-MM-dd"));
+
+                    command.Parameters.AddWithValue(
+                        "@FreshDays",
+                        food.FreshDays);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         // Xóa thực phẩm
         public static void DeleteFood(int id)
         {
@@ -146,12 +224,15 @@ namespace Tulanh.Data
             {
                 connection.Open();
 
-                string sql = "DELETE FROM Foods WHERE Id = @Id";
+                string sql =
+                    "DELETE FROM Foods WHERE Id = @Id";
 
                 using (SqliteCommand command =
                        new SqliteCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue(
+                        "@Id",
+                        id);
 
                     command.ExecuteNonQuery();
                 }
