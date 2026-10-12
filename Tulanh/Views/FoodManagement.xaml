@@ -10,7 +10,9 @@
         </Grid.ColumnDefinitions>
 
 
-        <!-- FORM NHẬP / SỬA THỰC PHẨM -->
+        <!-- ========================= -->
+        <!-- FORM NHẬP THỰC PHẨM -->
+        <!-- ========================= -->
 
         <Border Grid.Column="0"
                 Background="White"
@@ -20,13 +22,13 @@
 
             <StackPanel>
 
-                <TextBlock Text="Nhập Thực Phẩm Mới"
+                <!-- TIÊU ĐỀ -->
+                <TextBlock Text="Quản Lý Thực Phẩm"
                            FontSize="20"
                            FontWeight="Bold"/>
 
 
-                <!-- TÊN -->
-
+                <!-- TÊN THỰC PHẨM -->
                 <TextBlock Text="Tên thực phẩm"
                            Margin="0,20,0,5"/>
 
@@ -35,7 +37,6 @@
 
 
                 <!-- PHÂN LOẠI -->
-
                 <TextBlock Text="Phân loại"
                            Margin="0,15,0,5"/>
 
@@ -51,7 +52,6 @@
 
 
                 <!-- NGĂN CHỨA -->
-
                 <TextBlock Text="Xếp vào ngăn chứa"
                            Margin="0,15,0,5"/>
 
@@ -66,7 +66,6 @@
 
 
                 <!-- SỐ LƯỢNG + TRỌNG LƯỢNG -->
-
                 <Grid Margin="0,15,0,0">
 
                     <Grid.ColumnDefinitions>
@@ -75,6 +74,7 @@
                     </Grid.ColumnDefinitions>
 
 
+                    <!-- SỐ LƯỢNG -->
                     <StackPanel Grid.Column="0">
 
                         <TextBlock Text="Số lượng"/>
@@ -85,6 +85,7 @@
                     </StackPanel>
 
 
+                    <!-- TRỌNG LƯỢNG -->
                     <StackPanel Grid.Column="1"
                                 Margin="15,0,0,0">
 
@@ -99,7 +100,6 @@
 
 
                 <!-- NGÀY NHẬP + SỐ NGÀY TƯƠI -->
-
                 <Grid Margin="0,15,0,0">
 
                     <Grid.ColumnDefinitions>
@@ -108,6 +108,7 @@
                     </Grid.ColumnDefinitions>
 
 
+                    <!-- NGÀY NHẬP -->
                     <StackPanel Grid.Column="0">
 
                         <TextBlock Text="Ngày nhập"/>
@@ -118,6 +119,7 @@
                     </StackPanel>
 
 
+                    <!-- SỐ NGÀY TƯƠI -->
                     <StackPanel Grid.Column="1"
                                 Margin="15,0,0,0">
 
@@ -131,22 +133,64 @@
                 </Grid>
 
 
-                <!-- NÚT LƯU / CẬP NHẬT -->
+                <!-- ========================= -->
+                <!-- NÚT THÊM MỚI -->
+                <!-- ========================= -->
 
-                <Button Content="Lưu Vào Tủ Lạnh"
-                        Height="45"
-                        Margin="0,25,0,0"
-                        Background="#39B872"
-                        Foreground="White"
-                        FontWeight="Bold"
-                        Click="btnSave_Click"/>
+                <StackPanel x:Name="AddButtons"
+                            Orientation="Horizontal"
+                            Margin="0,25,0,0">
+
+                    <Button Content="Thêm"
+                            Width="120"
+                            Height="45"
+                            Background="#39B872"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Margin="0,0,10,0"
+                            Click="btnAdd_Click"/>
+
+                    <Button Content="Hủy"
+                            Width="120"
+                            Height="45"
+                            Click="btnCancel_Click"/>
+
+                </StackPanel>
+
+
+                <!-- ========================= -->
+                <!-- NÚT CẬP NHẬT -->
+                <!-- ========================= -->
+
+                <StackPanel x:Name="EditButtons"
+                            Orientation="Horizontal"
+                            Margin="0,25,0,0"
+                            Visibility="Collapsed">
+
+                    <Button Content="Cập nhật"
+                            Width="120"
+                            Height="45"
+                            Background="Orange"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Margin="0,0,10,0"
+                            Click="btnUpdate_Click"/>
+
+                    <Button Content="Hủy"
+                            Width="120"
+                            Height="45"
+                            Click="btnCancel_Click"/>
+
+                </StackPanel>
 
             </StackPanel>
 
         </Border>
 
 
+        <!-- ========================= -->
         <!-- DANH SÁCH THỰC PHẨM -->
+        <!-- ========================= -->
 
         <Border Grid.Column="1"
                 Background="White"
@@ -155,57 +199,57 @@
 
             <StackPanel>
 
+                <!-- TIÊU ĐỀ -->
                 <TextBlock Text="Trạng Thái Kho Thực Phẩm"
                            FontSize="20"
                            FontWeight="Bold"
                            Margin="0,0,0,20"/>
 
 
+                <!-- DATAGRID -->
                 <DataGrid x:Name="FoodDataGrid"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          HeadersVisibility="Column">
 
 
                     <DataGrid.Columns>
 
 
                         <!-- TÊN -->
-
                         <DataGridTextColumn
                             Header="Tên Thực Phẩm"
                             Binding="{Binding Name}"/>
 
 
                         <!-- PHÂN LOẠI -->
-
                         <DataGridTextColumn
                             Header="Phân loại"
                             Binding="{Binding Category}"/>
 
 
                         <!-- NGĂN -->
-
                         <DataGridTextColumn
                             Header="Ngăn Chứa"
                             Binding="{Binding Compartment}"/>
 
 
-                        <!-- SỐ LƯỢNG -->
-
+                        <!-- SỐ LƯỢNG / TRỌNG LƯỢNG -->
                         <DataGridTextColumn
                             Header="Số lượng / Trọng lượng"
                             Binding="{Binding QuantityWeight}"/>
 
 
                         <!-- TRẠNG THÁI -->
-
                         <DataGridTextColumn
                             Header="Trạng Thái"
                             Binding="{Binding FreshStatus}"/>
 
 
-                        <!-- SỬA + XÓA -->
+                        <!-- ========================= -->
+                        <!-- NÚT THAO TÁC -->
+                        <!-- ========================= -->
 
                         <DataGridTemplateColumn Header="Thao tác">
 
@@ -215,9 +259,8 @@
 
                                     <StackPanel Orientation="Horizontal">
 
-                                        <!-- NÚT SỬA -->
-
-                                        <Button Content="Sửa"
+                                        <!-- CHỈNH SỬA -->
+                                        <Button Content="Chỉnh sửa"
                                                 Background="Orange"
                                                 Foreground="White"
                                                 Padding="10,5"
@@ -225,8 +268,7 @@
                                                 Click="btnEdit_Click"/>
 
 
-                                        <!-- NÚT XÓA -->
-
+                                        <!-- XÓA -->
                                         <Button Content="Xóa"
                                                 Background="Red"
                                                 Foreground="White"
@@ -240,7 +282,6 @@
                             </DataGridTemplateColumn.CellTemplate>
 
                         </DataGridTemplateColumn>
-
 
                     </DataGrid.Columns>
 
