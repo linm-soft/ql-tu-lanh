@@ -2,3 +2,6 @@
 */bin/
 .vs/
 *.user
+WpfApp10/WpfApp10/bin/
+WpfApp10/WpfApp10/obj/Debug/net10.0-windows/apphost.exe
+WpfApp10/WpfApp10/obj/
